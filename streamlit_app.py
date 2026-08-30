@@ -102,7 +102,7 @@ if "current_resume_name" not in st.session_state:
  
  
 # SIDEBAR
-st.sidebar.title("NLP Resume Analysis")
+st.sidebar.title("📄 NLP Resume Analysis")
  
 st.sidebar.markdown(
     """
@@ -170,7 +170,7 @@ if api_url:
 if page == "Resume Database Search":
     st.markdown(
         '<div class="main-title">'
-        'Resume Database Search'
+        '📄 Resume Database Search'
         '</div>',
         unsafe_allow_html=True
     )
@@ -183,7 +183,7 @@ if page == "Resume Database Search":
     )
  
     # SEARCH INPUT
-    st.subheader("Search Resume Database")
+    st.subheader("🔎 Search Resume Database")
     query = st.text_input(
         "Enter an entity or natural-language question",
         placeholder=(
@@ -324,7 +324,7 @@ if page == "Resume Database Search":
 
         # QUERY INFORMATION
         st.markdown("---")
-        st.subheader("Search Information")
+        st.subheader("📊 Search Information")
         if use_fast_search:
             st.caption(
                 "⚡ Fast search mode — exact match → alias match → "
@@ -367,21 +367,21 @@ if page == "Resume Database Search":
                 )
  
         # EXTRACTED ENTITY
-        st.subheader("Entity Extraction")
+        st.subheader("🏷️ Entity Extraction")
         extracted_entity = result.get("extracted_entity")
         matched_entity = result.get("matched_entity")
  
         col1, col2 = st.columns(2)
  
         with col1:
-            st.write("**Extracted Entity**")
+            st.write("**🔎 Extracted Entity**")
             if extracted_entity:
                 st.info(str(extracted_entity))
             else:
                 st.write("N/A")
  
         with col2:
-            st.write("**Matching Entity**")
+            st.write("**🎯 Matching Entity**")
             if matched_entity:
                 st.success(str(matched_entity))
             else:
@@ -394,7 +394,7 @@ if page == "Resume Database Search":
         )
  
         if similar_entities:
-            with st.expander("View Similar Entities"):
+            with st.expander("🔗 View Similar Entities"):
                 for entity in similar_entities:
                     entity_text = entity.get("entity_text","")
                     entity_label = entity.get("entity_label","")
@@ -418,7 +418,7 @@ if page == "Resume Database Search":
             "resume_ids",
             []
         )
-        st.subheader("Relevant Resume IDs")
+        st.subheader("📁 Relevant Resume IDs")
  
         if resume_ids:
             st.write(
@@ -433,7 +433,7 @@ if page == "Resume Database Search":
         # DATABASE RECORDS
         records = result.get("records",[])
  
-        st.subheader("Relevant Resume Results")
+        st.subheader("📄 Relevant Resume Results")
  
         if not records:
             st.info("No resume records to display.")
@@ -496,7 +496,7 @@ if page == "Resume Database Search":
  
         # GPT-OSS ANSWER
         answer = result.get("answer")
-        st.subheader("GPT-OSS Answer")
+        st.subheader("🤖 GPT-OSS Answer")
 
         if answer:
             st.markdown(
@@ -527,7 +527,7 @@ if page == "Resume Database Search":
 elif page == "Upload & Analyze Resume":
     st.markdown(
         '<div class="main-title">'
-        'Upload & Analyze Resume'
+        '📤 Upload & Analyze Resume'
         '</div>',
         unsafe_allow_html=True
     )
@@ -541,7 +541,7 @@ elif page == "Upload & Analyze Resume":
     )
  
     # 1. RESUME NAME INPUT
-    st.subheader("1. Name this resume")
+    st.subheader("1️⃣ Name this resume")
     resume_name = st.text_input(
         "Resume name / candidate identifier",
         value=st.session_state.current_resume_name,
@@ -551,7 +551,7 @@ elif page == "Upload & Analyze Resume":
     st.session_state.current_resume_name = resume_name
  
     # 2. FILE UPLOADER — PAGES FOR THE CURRENT RESUME ONLY
-    st.subheader("2. Upload all pages for this resume")
+    st.subheader("2️⃣ Upload all pages for this resume")
     uploader_key = f"resume_pages_{st.session_state.uploader_key_version}"
     uploaded_pages = st.file_uploader(
         "Choose file(s) — e.g. page 1 and page 2 of the same resume",
@@ -568,7 +568,7 @@ elif page == "Upload & Analyze Resume":
             st.write(f"- {f.name}")
  
     # 3. SUBMIT THIS RESUME (all staged pages -> one API call)
-    st.subheader("3. Submit this resume")
+    st.subheader("3️⃣ Submit this resume")
     submit_clicked = st.button(
         "✅ Analyze this resume",
         type="primary"
@@ -646,7 +646,7 @@ elif page == "Upload & Analyze Resume":
     # DISPLAY ANALYZED RESUMES
     if st.session_state.uploaded_results:
         st.markdown("---")
-        st.subheader("Analyzed Resumes")
+        st.subheader("📂 Analyzed Resumes")
         for resume_name_key, result in st.session_state.uploaded_results.items():
             st.markdown("---")
             st.header(resume_name_key)
@@ -665,7 +665,7 @@ elif page == "Upload & Analyze Resume":
                 st.write(str(result.get("page_count", 1)))
  
             # ORIGINAL UPLOADED PAGES
-            st.subheader("Uploaded Pages")
+            st.subheader("📑 Uploaded Pages")
             page_previews = result.get("_page_previews", [])
             if page_previews:
                 preview_cols = st.columns(min(len(page_previews), 4))
@@ -691,7 +691,7 @@ elif page == "Upload & Analyze Resume":
                 )
  
             # OCR TEXT
-            st.subheader("OCR Extracted Text (combined across pages)")
+            st.subheader("📝 OCR Extracted Text (combined across pages)")
             ocr_text = result.get("ocr_text", "")
             if ocr_text:
                 st.text_area(
@@ -705,7 +705,7 @@ elif page == "Upload & Analyze Resume":
                 st.warning("No OCR text was extracted.")
  
             # NER RESULTS
-            st.subheader("NER Results")
+            st.subheader("🏷️ NER Results")
             entities = result.get("entities", [])
             if entities:
                 ner_table = [
@@ -726,7 +726,7 @@ elif page == "Upload & Analyze Resume":
                 st.info("No entities were detected.")
  
             # HIGHLIGHTED OCR
-            st.subheader("Highlighted Entities")
+            st.subheader("✨ Highlighted Entities")
             highlighted_html = result.get("highlighted_html", "")
             if highlighted_html:
                 st.markdown(
@@ -741,7 +741,7 @@ elif page == "Upload & Analyze Resume":
                 st.info("No highlighted OCR available.")
  
             # RAW NER JSON
-            with st.expander("View Raw NER JSON", expanded=False):
+            with st.expander("🧾 View Raw NER JSON", expanded=False):
                 raw_ner_json = result.get(
                     "ner_json",
                     {"filename": resume_name_key, "entities": entities}
@@ -749,7 +749,7 @@ elif page == "Upload & Analyze Resume":
                 st.json(raw_ner_json)
  
             # GPT-OSS Q&A
-            st.subheader("GPT-OSS Q&A")
+            st.subheader("🤖 GPT-OSS Q&A")
             question_key = "question_" + resume_name_key
             question = st.text_input(
                 "Ask a question about this resume",
