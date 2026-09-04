@@ -196,7 +196,7 @@ if page == "Resume Database Search":
 
     # FAST SEARCH TOGGLE (embeddings only, skips GPT-OSS)
     use_fast_search = st.checkbox(
-        "⚡ Fast search (embeddings only)",
+        "⚡ Fast search",
         value=False,
         help=(
             "When checked, calls /embedding-search directly: exact match "
