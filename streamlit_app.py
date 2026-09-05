@@ -240,7 +240,7 @@ if page == "Resume Database Search":
                         f"{api_url}{endpoint}",
                         json={
                             "query": query,
-                            "max_documents": 5,
+                            "max_documents": 10,
                             "top_k": 10
                         },
                         timeout=60
@@ -250,7 +250,7 @@ if page == "Resume Database Search":
                         f"{api_url}{endpoint}",
                         json={
                             "query": query,
-                            "max_documents": 5
+                            "max_documents": 10
                         },
                         timeout=300
                     )
